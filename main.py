@@ -10,11 +10,32 @@ import logging
 from flask import redirect
 from flask import url_for
 from flask import session as login_session
+import requests
+import json
+import requests
+import json
+from ibm_watson import ToneAnalyzerV3, ApiException
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 
+
+# Watson tone analyzer
+def analyzeTone(text):
+
+    tone_analyzer = ToneAnalyzerV3(
+        version='2017-09-21',
+        iam_apikey='7shtiG9zqTbdCWpxOgdLD49It8ofA3LZG3owovJ8cTwd',
+        url='https://gateway-lon.watsonplatform.net/tone-analyzer/api'
+    )
+
+
+    
+    response = tone_analyzer.tone(text, content_type='text/plain',
+        sentences=True, tones=None, content_language=None, accept_language=None).get_result()
+
+    print(response)
 
 # Creates sqlite DB connection and return session object
 def dbConnection():
@@ -185,6 +206,11 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 
     # Storing user messages
     user = session.query(Users).filter_by(id=login_session['id']).one_or_none()
+
+    # Calling Watson tone analyzer method
+    toneResponse = analyzeTone(json['message'])
+    
+
 
     newMessage = Messages(message=json['message'], user=user)
     session.add(newMessage)

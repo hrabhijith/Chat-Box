@@ -3,3 +3,5 @@ flask-socketio
 eventlet==0.17.4
 gunicorn==18.0.0
 passlib==1.7.1
+ibm-watson>=3.0.3
+SQLAlchemy==1.2.18
