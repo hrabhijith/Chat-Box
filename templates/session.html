@@ -87,7 +87,7 @@
 
 
   <script type="text/javascript">
-    var socket = io.create_connection('http://' + document.domain + ':' + location.port, clearTimeout);
+    var socket = io.connect('http://' + document.domain + ':' + location.port, clearTimeout);
     socket.on('connect', function () {
       console.log('socket connected')
       var form = $('form').on('submit', function (e) {
