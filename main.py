@@ -26,7 +26,7 @@ socketio = SocketIO(app)
 
 # Watson tone analyzer
 def analyzeTone(text):
-
+    print('inside tone')
     tone_analyzer = ToneAnalyzerV3(
         version='2017-09-21',
         iam_apikey='7shtiG9zqTbdCWpxOgdLD49It8ofA3LZG3owovJ8cTwd',
@@ -217,6 +217,7 @@ def messageReceived(methods=['GET', 'POST']):
 def handle_my_custom_event(json, methods=['GET', 'POST']):
     # appending the username of th user logged in
     json['username'] = login_session['username']
+    print('event reached sever')
 
     # Creating DB connection
     session = dbConnection()
@@ -226,6 +227,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
 
     # Calling Watson tone analyzer method and analysis of response
     toneResponse = analyzeTone(json['message'])
+    print('response from tone method')
     try:
         t = toneResponse['document_tone']['tones'][0]
         score = toneResponse['document_tone']['tones'][0]['score']
