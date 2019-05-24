@@ -1,3 +1,6 @@
+<!-- Uses base.html template as base -->
+{% extends "base.html" %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,47 +9,77 @@
 </head>
 
 <body>
-  <nav><button type="button" onclick="window.location.href='{{url_for('logout')}}';">Logout</button></nav>
+  {% block logout %}
+  <div style="padding-right: 100px">
+    <button type="button" class="btn btn-outline-success my-2 my-sm-0"
+      onclick="window.location.href='{{url_for('logout')}}';">Logout</button>
+  </div>
 
-  <div class="row">
-    {% if messages %}
-    <br>
-    <div class="col-md-6">
-      {% for i in messages %}
-      <div>
-        <p>{{ i.username }} - {{ i.message }}</p>
-      </div>
+  {% endblock %}
+  {% block content %}
+  <br>
+  <div class="container" style="position: fixed; padding-left: 120px; z-index: 9999; background-color: #eeeeee">
+    <form action="" method="POST">
+      <input type="text" class="message form-control" placeholder="Type here!" style="width: 300px" />
       <br>
-      {% endfor %}
-      <div class="messageContainer">
+      <input type="submit" class="btn btn-success" value="Send">
+    </form>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="row" style="z-index: 9998;">
+    <br>
+    <div class="container">
+      <div class="col-md-6">
+        <br>
+        {% if messages %}
 
+        <div class="messageContainer">
+
+        </div>
+
+        {% for i in messages %}
+
+        <div style="word-wrap: break-word">
+          <p><strong><i>{{ i.username }}</i></strong> - {{ i.message }} </p>
+        </div>
+        <br>
+
+        {% endfor %}
+
+        {% endif %}
+        {% if not messages %}
+
+        <div class="col-md-6">
+          <h3 style='color: #ccc;font-size: 30px;'>No message yet!</h3>
+        </div>
+
+        {% endif %}
+        <br>
       </div>
     </div>
-    {% endif %}
 
     <br>
-    <div class="col-md-6">
-      <ul>
-        {% for i in users %}
-        {{i.username}} - <i>{{i.name}}</i>
-        {% endfor %}
-      </ul>
+
+    <div id="onlineUsers" style="position: fixed; padding-left: 800px">
+      <div class="container">
+        <br>
+        <h5>Users online!</h5>
+        <ul>
+          <br>
+          {% for i in users %}
+          {{i.username}} - <i>{{i.name}}</i>
+          <br>
+          <br>
+          {% endfor %}
+        </ul>
+      </div>
     </div>
+
   </div>
 
-  {% if not messages %}
-  <div class="row">
-    <div class="col-md-6">
-      <h3 style='color: #ccc;font-size: 30px;'>No message yet!</h3>
-    </div>
-  </div>
-
-  {% endif %}
-
-  <form action="" method="POST">
-    <input type="text" class="message" placeholder="Messages" />
-    <input type="submit" />
-  </form>
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -56,24 +89,26 @@
   <script type="text/javascript">
     var socket = io.connect('http://' + document.domain + ':' + location.port);
     socket.on('connect', function () {
+
       var form = $('form').on('submit', function (e) {
         e.preventDefault()
-        let user_input = $('input.message').val()
-        socket.emit('my event', {
-          message: user_input
-        })
+        if ($('input.message').val()) {
+          let user_input = $('input.message').val();
+          socket.emit('my event', {
+            message: user_input
+          })
+        }
         $('input.message').val('').focus()
       })
     })
     socket.on('my response', function (msg) {
-      console.log(msg)
-
-
-      $('.messageContainer').append("<p>" + msg.username + " - " + msg.message + "</p><br>");
+      $('.messageContainer').append("<p style='word-wrap: break-word'><strong><i>" + msg.username + "</i></strong> - " + msg.message + "</p><br>");
 
     })
-    
+
   </script>
+  {% endblock %}
+
 </body>
 
 </html>

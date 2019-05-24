@@ -1,3 +1,6 @@
+<!-- Uses base.html template as base -->
+{% extends "base.html" %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,43 +12,49 @@
 </head>
 
 <body>
-    <h1>Signup</h1>
+    {% block content %}
+    <h1 style="padding-left: 30px">Signup</h1>
     <div class="row">
-        <div class="col-sm-6">
-            <form action="" method="POST">
-                <div class="form-group">
-                    <label for="name">Full Name:
-                        <input type="text" id="name" name ="name" required>
-                    </label>
-                    <br>
-                    <br>
-                    <label for="username">Username:
-                        <input type="text" id="username" name ="username" required>
-                    </label>
-                    {% if nameValid == False %}
-                    <p>Username already taken</p>
-                    {% endif %}
-                    <br>
-                    <br>
-                    <label for="email">Email id:
-                        <input type="email" id="email" name ="email" required>
-                    </label>
-                    {% if emailValid == False %}
-                    <p>Username already taken</p>
-                    {% endif %}
-                    <br>
-                    <br>
-                    <label for="password">Password:
-                        <input type="password" id="password" name ="password" required>
-                    </label>
-                    <br>
-                    <br>
-                    <button type="submit">Signup</button>
-                    <button type="button" onclick="window.location.href='{{url_for('login')}}';">Login</button>
-                </div>
-            </form>
+        <div class="container">
+            <div class="col-sm-6">
+                <form action="" method="POST">
+                    <div class="form-group">
+                        <label for="name">Full Name:
+                            <input type="text" id="name" class="form-control" name="name" required>
+                        </label>
+                        <br>
+                        <br>
+                        <label for="username">Username:
+                            <input type="text" id="username" class="form-control" name="username" required>
+                        </label>
+                        {% if nameValid == False %}
+                        <p>Username already taken</p>
+                        {% endif %}
+                        <br>
+                        <br>
+                        <label for="email">Email id:
+                            <input type="email" id="email" class="form-control" name="email" required>
+                        </label>
+                        {% if emailValid == False %}
+                        <p>Username already taken</p>
+                        {% endif %}
+                        <br>
+                        <br>
+                        <label for="password">Password:
+                            <input type="password" id="password" class="form-control" name="password" required>
+                        </label>
+                        <br>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Signup</button>
+                        <button type="button" class="btn btn-danger"
+                            onclick="window.location.href='{{url_for('login')}}';">Go to login</button>
+                    </div>
+                </form>
+            </div>
         </div>
+
     </div>
+    {% endblock %}
 </body>
 
 </html>
