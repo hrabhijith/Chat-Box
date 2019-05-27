@@ -7,7 +7,7 @@ The application also analyzes the phrases submitted each time to the session by 
 # Installation and reference to execute from local
 
 * This application is full stack and built using Python Flask with SQLAlchmy ORM and few other modules.
-* Requires Python 3.6.8 [link to download]()
+* Requires Python 3.6.8 [link to download](https://www.python.org/downloads)
 * First run this command from any IDE in Python interpreter(terminal) to download all the required modules - `pip3 install -r requirements.txt`
 * Then, run this command to setup database objects - `python database_setup.py`
 * Next, run this command and the application starts running and can be viewed in browser at **localhost:1111** - `python main.py`
