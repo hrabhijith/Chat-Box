@@ -3,7 +3,7 @@ chardet==3.0.4
 Click==7.0
 colorama==0.3.9
 docutils==0.14
-ecdsa==0.13.2
+ecdsa==0.13.3
 eventlet==0.17.4
 Flask==0.12.2
 Flask-SocketIO==4.0.0
