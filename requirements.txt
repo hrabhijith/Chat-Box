@@ -28,7 +28,7 @@ python-socketio==4.0.2
 pytz==2019.1
 PyYAML==3.13
 requests==2.22.0
-rsa==3.4.2
+rsa==4.1
 s3transfer==0.2.0
 six==1.12.0
 SQLAlchemy==1.2.18
