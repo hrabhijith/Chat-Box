@@ -29,8 +29,8 @@ def analyzeTone(text):
     print('inside tone')
     tone_analyzer = ToneAnalyzerV3(
         version='2017-09-21',
-        iam_apikey='7shtiG9zqTbdCWpxOgdLD49It8ofA3LZG3owovJ8cTwd',
-        url='https://gateway-lon.watsonplatform.net/tone-analyzer/api'
+        iam_apikey='xWxaJAu_-vzcJ9yx03CZn1fBHZrJhWzyMg2xqHk9aNZK',
+        url='https://api.eu-gb.tone-analyzer.watson.cloud.ibm.com/instances/0b4d1267-c927-4bec-b312-283bac258edf'
     )
 
     # Tone analyzer API call.
@@ -257,7 +257,7 @@ def handle_my_custom_event(json, methods=['GET', 'POST']):
                 json['message'] = json['message'] + ' 👿'
 
     except IndexError:
-        json['message'] = json['message'] + ' 😔'
+        json['message'] = json['message'] + ' 😐'
     newMessage = Messages(message=json['message'], user=user)
     session.add(newMessage)
     session.commit()
